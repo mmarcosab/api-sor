@@ -1,11 +1,8 @@
 package br.com.sor.app.gateway.impl;
 
-import br.com.sor.app.entity.Pedido;
 import br.com.sor.app.gateway.PedidoGateway;
 import br.com.sor.app.gateway.database.PedidoData;
-import br.com.sor.app.gateway.database.ProdutoData;
 import br.com.sor.app.gateway.database.repository.PedidoRepository;
-import br.com.sor.app.gateway.database.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -50,6 +47,11 @@ public class PedidoGatewayImpl implements PedidoGateway {
             pedidoRepository.save(pedidoExistente.get());
         }
         return pedidoNovo;
+    }
+
+    @Override
+    public void delete(Integer id){
+        pedidoRepository.deleteById(id);
     }
 
 }

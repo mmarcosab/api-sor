@@ -49,4 +49,9 @@ public class ProdutoGatewayImpl implements ProdutoGateway {
         }
     }
 
+    @Override
+    public void delete(Integer id){
+        produtoRepository.deleteById(id);
+    }
+
 }

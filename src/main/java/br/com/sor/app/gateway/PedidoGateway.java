@@ -10,4 +10,5 @@ public interface PedidoGateway {
     List<PedidoData> getAll();
     Optional<PedidoData> getById(Integer id);
     PedidoData update(PedidoData pedidoData)throws Exception;
+    void delete(Integer id);
 }

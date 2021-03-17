@@ -21,7 +21,9 @@ public class PedidoDataConverter {
         PedidoData pedidoData = new PedidoData();
         List<ProdutoData> produtosData = new ArrayList<>();
 
-        pedidoData.setId(pedido.getCodigo());
+        if(pedido.getCodigo() > 0) {
+            pedidoData.setId(pedido.getCodigo());
+        }
         pedidoData.setProdutos(produtoDataConverter.convert(pedido.getProdutos()));
         pedidoData.setTipoPedido(pedido.getTipoPedido());
         pedidoData.setTotal(pedido.getTotal());

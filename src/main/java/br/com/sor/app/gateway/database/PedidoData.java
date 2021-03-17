@@ -20,7 +20,7 @@ public class PedidoData {
     @Column(name = "id")
     private int id;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @Column(name = "item")
     private List<ProdutoData> produtos;
 

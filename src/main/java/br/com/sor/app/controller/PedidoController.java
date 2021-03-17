@@ -59,4 +59,9 @@ public class PedidoController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id){
+        pedidoGateway.delete(id);
+    }
+
 }

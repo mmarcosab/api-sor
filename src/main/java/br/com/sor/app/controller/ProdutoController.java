@@ -60,4 +60,9 @@ public class ProdutoController {
         }
     }
 
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Integer id){
+        produtoGateway.delete(id);
+    }
+
 }

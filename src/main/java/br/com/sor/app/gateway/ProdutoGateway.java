@@ -10,4 +10,5 @@ public interface ProdutoGateway {
     List<ProdutoData> getAll();
     Optional<ProdutoData> getById(Integer id);
     ProdutoData update(ProdutoData produtoData)throws Exception;
+    void delete(Integer id);
 }
