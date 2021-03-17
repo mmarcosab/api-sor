@@ -13,6 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Pedido {
 
+    private int codigo;
+    private int tipoPedido;
+    private int numeroMesa;
     private List<Produto> produtos;
     private BigDecimal total;
 

@@ -17,21 +17,25 @@ public class ProdutoGatewayImpl implements ProdutoGateway {
 
     private final ProdutoRepository produtoRepository;
 
+    @Override
     public ProdutoData save(ProdutoData produtoData){
         log.debug("Armazenando produto: {}", produtoData);
         return produtoRepository.save(produtoData);
     }
 
+    @Override
     public List<ProdutoData> getAll(){
         log.debug("Buscando todos os produtos cadastrados");
         return produtoRepository.findAll();
     }
 
+    @Override
     public Optional<ProdutoData> getById(Integer id){
         log.debug("Buscando produto por id {}", id);
         return produtoRepository.findById(id);
     }
 
+    @Override
     public ProdutoData update(ProdutoData produtoData)throws Exception {
         log.debug("Buscando produto por id {}", produtoData.getId());
         Optional<ProdutoData> produtoDataExistente = produtoRepository.findById(produtoData.getId());

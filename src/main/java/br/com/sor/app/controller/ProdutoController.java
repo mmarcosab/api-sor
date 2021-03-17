@@ -1,9 +1,9 @@
 package br.com.sor.app.controller;
 
-import br.com.sor.app.controller.converter.ProdutoConverter;
 import br.com.sor.app.entity.Produto;
 import br.com.sor.app.gateway.ProdutoGateway;
 import br.com.sor.app.gateway.database.ProdutoData;
+import br.com.sor.app.gateway.database.converter.ProdutoDataConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,13 @@ import java.util.Optional;
 public class ProdutoController {
 
     private final ProdutoGateway produtoGateway;
-    private final ProdutoConverter produtoConverter;
+    private final ProdutoDataConverter produtoDataConverter;
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody Produto produto){
         log.info("Payload recebido: {}", produto);
         try {
-            produtoGateway.save(produtoConverter.convert(produto));
+            produtoGateway.save(produtoDataConverter.convert(produto));
             return ResponseEntity.ok().body(produto);
         } catch (Exception e){
             return ResponseEntity.badRequest().build();
@@ -52,9 +52,9 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestParam Produto produto){
+    public ResponseEntity<?> update(@RequestBody Produto produto){
         try {
-            return ResponseEntity.ok().body(produtoGateway.update(produtoConverter.convert(produto)));
+            return ResponseEntity.ok().body(produtoGateway.update(produtoDataConverter.convert(produto)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

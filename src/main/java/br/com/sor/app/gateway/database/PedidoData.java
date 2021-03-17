@@ -1,11 +1,10 @@
 package br.com.sor.app.gateway.database;
 
-import br.com.sor.app.entity.Produto;
 import lombok.*;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+
 
 @ToString
 @Getter
@@ -17,14 +16,18 @@ import java.util.List;
 public class PedidoData {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
+    @OneToMany(fetch = FetchType.LAZY)
     @Column(name = "item")
-    private List<Produto> produtos;
+    private List<ProdutoData> produtos;
 
     @Column(name = "total")
     private BigDecimal total;
+
+    @Column(name = "tipo_pedido")
+    private int tipoPedido;
 
 }

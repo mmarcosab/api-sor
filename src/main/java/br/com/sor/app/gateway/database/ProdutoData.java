@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+
 @ToString
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 public class ProdutoData {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 

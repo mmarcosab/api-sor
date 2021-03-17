@@ -20,26 +20,36 @@ public class PedidoGatewayImpl implements PedidoGateway {
 
     private final PedidoRepository pedidoRepository;
 
+    @Override
     public PedidoData save(PedidoData pedidoData){
         log.debug("Armazenando produto: {}", pedidoData);
         return pedidoRepository.save(pedidoData);
     }
 
+    @Override
     public List<PedidoData> getAll(){
         log.debug("Buscando todos os pedidos cadastrados");
         return pedidoRepository.findAll();
     }
 
+    @Override
     public Optional<PedidoData> getById(Integer id){
         log.debug("Buscando pedido por id {}", id);
         return pedidoRepository.findById(id);
     }
 
-    public PedidoData update(PedidoData pedidoData)throws Exception {
-        log.debug("Buscando produto por id {}", pedidoData.getId());
-        //TODO - add itens ao pedido
-        return new PedidoData();
-
+    @Override
+    public PedidoData update(PedidoData pedidoNovo)throws Exception {
+        log.debug("Buscando produto por id {}", pedidoNovo.getId());
+        Optional<PedidoData> pedidoExistente = pedidoRepository.findById(pedidoNovo.getId());
+        if(!pedidoExistente.isEmpty()){
+            pedidoExistente.get().setId(pedidoNovo.getId());
+            pedidoExistente.get().setTotal(pedidoNovo.getTotal());
+            pedidoExistente.get().setTipoPedido(pedidoNovo.getTipoPedido());
+            pedidoExistente.get().setProdutos(pedidoNovo.getProdutos());
+            pedidoRepository.save(pedidoExistente.get());
+        }
+        return pedidoNovo;
     }
 
 }
