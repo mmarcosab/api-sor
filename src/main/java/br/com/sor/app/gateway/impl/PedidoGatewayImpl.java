@@ -1,8 +1,8 @@
 package br.com.sor.app.gateway.impl;
 
 import br.com.sor.app.gateway.PedidoGateway;
-import br.com.sor.app.gateway.database.PedidoData;
-import br.com.sor.app.gateway.database.repository.PedidoRepository;
+import br.com.sor.app.gateway.database.PedidoSalaoData;
+import br.com.sor.app.gateway.database.repository.PedidoSalaoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,43 +15,43 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PedidoGatewayImpl implements PedidoGateway {
 
-    private final PedidoRepository pedidoRepository;
+    private final PedidoSalaoRepository pedidoSalaoRepository;
 
     @Override
-    public PedidoData save(PedidoData pedidoData){
-        log.debug("Armazenando produto: {}", pedidoData);
-        return pedidoRepository.save(pedidoData);
+    public PedidoSalaoData save(PedidoSalaoData pedidoSalaoData){
+        log.debug("Armazenando produto: {}", pedidoSalaoData);
+        return pedidoSalaoRepository.save(pedidoSalaoData);
     }
 
     @Override
-    public List<PedidoData> getAll(){
+    public List<PedidoSalaoData> getAll(){
         log.debug("Buscando todos os pedidos cadastrados");
-        return pedidoRepository.findAll();
+        return pedidoSalaoRepository.findAll();
     }
 
     @Override
-    public Optional<PedidoData> getById(Integer id){
+    public Optional<PedidoSalaoData> getById(Integer id){
         log.debug("Buscando pedido por id {}", id);
-        return pedidoRepository.findById(id);
+        return pedidoSalaoRepository.findById(id);
     }
 
     @Override
-    public PedidoData update(PedidoData pedidoNovo)throws Exception {
+    public PedidoSalaoData update(PedidoSalaoData pedidoNovo)throws Exception {
         log.debug("Buscando produto por id {}", pedidoNovo.getId());
-        Optional<PedidoData> pedidoExistente = pedidoRepository.findById(pedidoNovo.getId());
+        Optional<PedidoSalaoData> pedidoExistente = pedidoSalaoRepository.findById(pedidoNovo.getId());
         if(!pedidoExistente.isEmpty()){
             pedidoExistente.get().setId(pedidoNovo.getId());
             pedidoExistente.get().setTotal(pedidoNovo.getTotal());
             pedidoExistente.get().setTipoPedido(pedidoNovo.getTipoPedido());
             pedidoExistente.get().setProdutos(pedidoNovo.getProdutos());
-            pedidoRepository.save(pedidoExistente.get());
+            pedidoSalaoRepository.save(pedidoExistente.get());
         }
         return pedidoNovo;
     }
 
     @Override
     public void delete(Integer id){
-        pedidoRepository.deleteById(id);
+        pedidoSalaoRepository.deleteById(id);
     }
 
 }

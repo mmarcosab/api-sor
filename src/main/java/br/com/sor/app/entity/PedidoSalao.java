@@ -11,10 +11,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pedido {
+public class PedidoSalao {
 
     private int codigo;
-    private int tipoPedido;
     private int numeroMesa;
     private List<Produto> produtos;
     private BigDecimal total;

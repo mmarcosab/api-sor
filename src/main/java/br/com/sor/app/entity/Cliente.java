@@ -2,19 +2,16 @@ package br.com.sor.app.entity;
 
 import lombok.*;
 
-import java.math.BigDecimal;
-
-
 @ToString
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mercadoria {
+public class Cliente {
 
     private int codigo;
     private String nome;
-    private BigDecimal quantidade;
-    private int tipoQuantidade;
+    private String telefone;
+    private Endereco endereco;
 
 }

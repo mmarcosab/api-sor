@@ -3,6 +3,7 @@ package br.com.sor.app.entity;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @ToString
@@ -10,11 +11,11 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mercadoria {
+public class PedidoBalcao {
 
     private int codigo;
-    private String nome;
-    private BigDecimal quantidade;
-    private int tipoQuantidade;
+    private String nomeCliente;
+    private List<Produto> produtos;
+    private BigDecimal total;
 
 }

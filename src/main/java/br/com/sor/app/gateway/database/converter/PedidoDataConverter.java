@@ -1,8 +1,11 @@
-package br.com.sor.app.gateway.database.converter;//package br.com.sor.app.controller.converter;
+package br.com.sor.app.gateway.database.converter;
 
-import br.com.sor.app.entity.Pedido;
-import br.com.sor.app.entity.Produto;
-import br.com.sor.app.gateway.database.PedidoData;
+import br.com.sor.app.entity.PedidoBalcao;
+import br.com.sor.app.entity.PedidoSalao;
+import br.com.sor.app.entity.PedidoDelivery;
+import br.com.sor.app.gateway.database.PedidoBalcaoData;
+import br.com.sor.app.gateway.database.PedidoDeliveryData;
+import br.com.sor.app.gateway.database.PedidoSalaoData;
 import br.com.sor.app.gateway.database.ProdutoData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,21 +18,55 @@ import java.util.List;
 public class PedidoDataConverter {
 
     private final ProdutoDataConverter produtoDataConverter;
+    private final ClienteDataConverter clienteDataConverter;
 
-    public PedidoData convert(Pedido pedido){
+    public PedidoSalaoData convert(PedidoSalao pedidoSalao){
 
-        PedidoData pedidoData = new PedidoData();
+        PedidoSalaoData pedidoSalaoData = new PedidoSalaoData();
         List<ProdutoData> produtosData = new ArrayList<>();
 
-        if(pedido.getCodigo() > 0) {
-            pedidoData.setId(pedido.getCodigo());
+        if(pedidoSalao.getCodigo() > 0) {
+            pedidoSalaoData.setId(pedidoSalao.getCodigo());
         }
-        pedidoData.setProdutos(produtoDataConverter.convert(pedido.getProdutos()));
-        pedidoData.setTipoPedido(pedido.getTipoPedido());
-        pedidoData.setTotal(pedido.getTotal());
+        pedidoSalaoData.setNumeroMesa(pedidoSalao.getNumeroMesa());
+        pedidoSalaoData.setProdutos(produtoDataConverter.convert(pedidoSalao.getProdutos()));
+        pedidoSalaoData.setTotal(pedidoSalao.getTotal());
 
-        return pedidoData;
+        return pedidoSalaoData;
+
+    }
+
+    public PedidoBalcaoData convert(PedidoBalcao pedidoBalcao){
+
+        PedidoBalcaoData pedidoBalcaoData = new PedidoBalcaoData();
+        List<ProdutoData> produtosData = new ArrayList<>();
+
+        if(pedidoBalcao.getCodigo() > 0){
+            pedidoBalcaoData.setId(pedidoBalcao.getCodigo());
+        }
+        pedidoBalcaoData.setNomeCliente(pedidoBalcao.getNomeCliente());
+        pedidoBalcaoData.setTotal(pedidoBalcao.getTotal());
+        pedidoBalcaoData.setProdutos(produtoDataConverter.convert(pedidoBalcao.getProdutos()));
+
+        return pedidoBalcaoData;
+
+    }
+
+    public PedidoDeliveryData convert(PedidoDelivery pedidoDelivery){
+
+        PedidoDeliveryData pedidoDeliveryData = new PedidoDeliveryData();
+        List<ProdutoData> produtosData = new ArrayList<>();
+
+        if(pedidoDelivery.getCodigo() > 0){
+            pedidoDeliveryData.setId(pedidoDelivery.getCodigo());
+        }
+        pedidoDeliveryData.setProdutos(produtoDataConverter.convert(pedidoDelivery.getProdutos()));
+        pedidoDeliveryData.setCliente(clienteDataConverter.convert(pedidoDelivery.getCliente()));
+        pedidoDeliveryData.setTotal(pedidoDelivery.getTotal());
+
+        return pedidoDeliveryData;
 
     }
 
 }
+

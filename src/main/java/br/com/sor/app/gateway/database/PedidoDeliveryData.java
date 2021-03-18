@@ -1,10 +1,10 @@
 package br.com.sor.app.gateway.database;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-
 
 @ToString
 @Getter
@@ -12,11 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pedido")
-public class PedidoData {
+@Table(name = "pedido_delivery")
+public class PedidoDeliveryData {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
@@ -29,5 +29,8 @@ public class PedidoData {
 
     @Column(name = "tipo_pedido")
     private int tipoPedido;
+
+    @OneToOne
+    private ClienteData cliente;
 
 }
