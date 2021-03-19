@@ -9,13 +9,12 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
-public class PedidoBalcao extends Pedido {
+public class Pedido {
 
-    public PedidoBalcao(){
-        super();
-    }
-    private String nomeCliente;
+    private int codigo;
+    private List<Produto> produtos;
+    private BigDecimal total;
 
 }

@@ -1,5 +1,6 @@
 package br.com.sor.app.controller;
 
+import br.com.sor.app.controller.converter.MercadoriaConverter;
 import br.com.sor.app.entity.Mercadoria;
 import br.com.sor.app.gateway.MercadoriaGateway;
 import br.com.sor.app.gateway.database.MercadoriaData;
@@ -24,12 +25,15 @@ public class MercadoriaController {
 
     private final MercadoriaGateway mercadoriaGateway;
     private final MercadoriaDataConverter mercadoriaDataConverter;
+    private final MercadoriaConverter mercadoriaConverter;
+
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody Mercadoria mercadoria){
         log.info("Payload recebido: {}", mercadoria);
         try {
-            return ResponseEntity.ok().body(mercadoriaGateway.save(mercadoriaDataConverter.convert(mercadoria)));
+            Mercadoria mercadoriaArmazenada = mercadoriaConverter.convert(mercadoriaGateway.save(mercadoriaDataConverter.convert(mercadoria)));
+            return ResponseEntity.ok().body(mercadoriaArmazenada);
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e);
         }

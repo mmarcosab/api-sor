@@ -10,11 +10,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PedidoDelivery {
+public class PedidoDelivery extends Pedido {
 
-    private int codigo;
-    private List<Produto> produtos;
-    private BigDecimal total;
     private Cliente cliente;
 
 }
