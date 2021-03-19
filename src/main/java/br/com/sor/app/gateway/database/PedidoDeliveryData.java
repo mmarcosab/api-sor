@@ -30,7 +30,7 @@ public class PedidoDeliveryData {
     @Column(name = "tipo_pedido")
     private int tipoPedido;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private ClienteData cliente;
 
 }

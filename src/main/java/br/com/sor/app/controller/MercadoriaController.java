@@ -29,8 +29,7 @@ public class MercadoriaController {
     public ResponseEntity<?> cadastrar(@RequestBody Mercadoria mercadoria){
         log.info("Payload recebido: {}", mercadoria);
         try {
-            mercadoriaGateway.save(mercadoriaDataConverter.convert(mercadoria));
-            return ResponseEntity.ok().body(mercadoria);
+            return ResponseEntity.ok().body(mercadoriaGateway.save(mercadoriaDataConverter.convert(mercadoria)));
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e);
         }

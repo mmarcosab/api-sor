@@ -5,7 +5,7 @@ import br.com.sor.app.gateway.database.EnderecoData;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EnderecoConverter {
+public class EnderecoDataConverter {
 
     public EnderecoData convert(Endereco endereco){
 

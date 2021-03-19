@@ -1,14 +1,30 @@
 package br.com.sor.app.gateway;
 
+import br.com.sor.app.gateway.database.PedidoBalcaoData;
+import br.com.sor.app.gateway.database.PedidoDeliveryData;
 import br.com.sor.app.gateway.database.PedidoSalaoData;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PedidoGateway {
-    PedidoSalaoData save(PedidoSalaoData pedido);
-    List<PedidoSalaoData> getAll();
-    Optional<PedidoSalaoData> getById(Integer id);
-    PedidoSalaoData update(PedidoSalaoData pedidoSalaoData)throws Exception;
-    void delete(Integer id);
+
+    PedidoSalaoData savePedidoSalao(PedidoSalaoData pedido);
+    List<PedidoSalaoData> getAllPedidosSalao();
+    Optional<PedidoSalaoData> getPedidoSalaoById(Integer id);
+    PedidoSalaoData updatePedidoSalao(PedidoSalaoData pedidoSalaoData)throws Exception;
+    void deletePedidoSalao(Integer id);
+
+    PedidoDeliveryData savePedidoDelivery(PedidoDeliveryData pedidoDeliveryData);
+    List<PedidoDeliveryData> getAllPedidosDelivery();
+    Optional<PedidoDeliveryData> getPedidoDeliveryById(Integer id);
+    PedidoDeliveryData updatePedidoDelivery(PedidoDeliveryData pedidoNovo)throws Exception;
+    void deletePedidoDelivery(Integer id);
+
+    PedidoBalcaoData savePedidoBalcao(PedidoBalcaoData pedidoBalcaoData);
+    List<PedidoBalcaoData> getAllPedidosBalcao();
+    Optional<PedidoBalcaoData> getPedidoBalcaoById(Integer id);
+    PedidoBalcaoData updatePedidoBalcao(PedidoBalcaoData pedidoNovo)throws Exception;
+    void deletePedidoBalcao(Integer id);
+
 }

@@ -23,8 +23,7 @@ public class ClienteData {
     @Column(name = "telefone")
     private String telefone;
 
-    @OneToOne
-    @Column(name = "endereco")
+    @OneToOne(fetch = FetchType.EAGER)
     private EnderecoData endereco;
 
 }

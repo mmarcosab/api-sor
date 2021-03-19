@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ClienteDataConverter {
 
-    private final EnderecoConverter enderecoConverter;
+    private final EnderecoDataConverter enderecoDataConverter;
 
     public ClienteData convert(Cliente cliente) {
 
@@ -21,7 +21,7 @@ public class ClienteDataConverter {
             clienteData.setId(cliente.getCodigo());
         }
         clienteData.setNome(cliente.getNome());
-        clienteData.setEndereco(enderecoConverter.convert(cliente.getEndereco()));
+        clienteData.setEndereco(enderecoDataConverter.convert(cliente.getEndereco()));
         clienteData.setTelefone(cliente.getTelefone());
 
         return clienteData;
