@@ -1,7 +1,6 @@
 package br.com.sor.app.entity;
 
 import lombok.*;
-
 import java.math.BigDecimal;
 
 
