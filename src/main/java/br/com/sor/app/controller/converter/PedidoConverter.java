@@ -3,16 +3,12 @@ package br.com.sor.app.controller.converter;
 import br.com.sor.app.entity.PedidoBalcao;
 import br.com.sor.app.entity.PedidoDelivery;
 import br.com.sor.app.entity.PedidoSalao;
-import br.com.sor.app.entity.Produto;
 import br.com.sor.app.gateway.database.PedidoBalcaoData;
 import br.com.sor.app.gateway.database.PedidoDeliveryData;
 import br.com.sor.app.gateway.database.PedidoSalaoData;
-import br.com.sor.app.gateway.database.ProdutoData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -24,12 +20,11 @@ public class PedidoConverter {
     public PedidoSalao convert(PedidoSalaoData pedidoSalaoData){
 
         PedidoSalao pedidoSalao = new PedidoSalao();
-        List<Produto> produtos = new ArrayList<>();
 
         pedidoSalao.setCodigo(pedidoSalaoData.getId());
-        pedidoSalao.setNumeroMesa(pedidoSalao.getNumeroMesa());
+        pedidoSalao.setNumeroMesa(pedidoSalaoData.getNumeroMesa());
         pedidoSalao.setProdutos(produtoConverter.convert(pedidoSalaoData.getProdutos()));
-        pedidoSalao.setTotal(pedidoSalao.getTotal());
+        pedidoSalao.setTotal(pedidoSalaoData.getTotal());
 
         return pedidoSalao;
 

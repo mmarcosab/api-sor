@@ -50,7 +50,6 @@ public class PedidoGatewayImpl implements PedidoGateway {
         if(!pedidoExistente.isEmpty()){
             pedidoExistente.get().setId(pedidoNovo.getId());
             pedidoExistente.get().setTotal(pedidoNovo.getTotal());
-            pedidoExistente.get().setTipoPedido(pedidoNovo.getTipoPedido());
             pedidoExistente.get().setProdutos(pedidoNovo.getProdutos());
             pedidoSalaoRepository.save(pedidoExistente.get());
         }
@@ -60,6 +59,11 @@ public class PedidoGatewayImpl implements PedidoGateway {
     @Override
     public void deletePedidoSalao(Integer id){
         pedidoSalaoRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<PedidoSalaoData> getPedidoSalaoByNumeroMesa(Integer numeroMesa) {
+        return pedidoSalaoRepository.getByNumeroMesa(numeroMesa);
     }
 
     /* Pedidos viagem */

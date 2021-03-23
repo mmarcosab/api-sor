@@ -1,14 +1,11 @@
 package br.com.sor.app.controller;
 
-import br.com.sor.app.entity.PedidoBalcao;
-import br.com.sor.app.entity.PedidoSalao;
-import br.com.sor.app.entity.PedidoDelivery;
+import br.com.sor.app.controller.converter.PedidoConverter;
+import br.com.sor.app.entity.*;
 import br.com.sor.app.gateway.PedidoGateway;
 import br.com.sor.app.gateway.database.PedidoBalcaoData;
 import br.com.sor.app.gateway.database.PedidoDeliveryData;
 import br.com.sor.app.gateway.database.PedidoSalaoData;
-import br.com.sor.app.gateway.database.converter.ClienteDataConverter;
-import br.com.sor.app.gateway.database.converter.EnderecoDataConverter;
 import br.com.sor.app.gateway.database.converter.PedidoDataConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +24,7 @@ public class PedidoController {
 
     private final PedidoGateway pedidoGateway;
     private final PedidoDataConverter pedidoDataConverter;
-    private final ClienteDataConverter clienteDataConverter;
-    private final EnderecoDataConverter enderecoDataConverter;
-
+    private final PedidoConverter pedidoConverter;
 
     /* Pedidos vindos do salao*/
 
@@ -74,6 +69,25 @@ public class PedidoController {
         pedidoGateway.deletePedidoSalao(id);
     }
 
+    @GetMapping("/salao/fechar-conta/{numeroMesa}")
+    public PedidoSalao fecharConta(@PathVariable Integer numeroMesa){
+
+        PedidoSalao pedidoSalao = pedidoConverter.convert(pedidoGateway.getPedidoSalaoByNumeroMesa(numeroMesa).get());
+        pedidoSalao.setStatus(StatusPedidoSalao.FECHADO.getCodigo());
+        pedidoGateway.savePedidoSalao(pedidoDataConverter.convert(pedidoSalao));
+
+        return pedidoSalao;
+    }
+
+    @GetMapping("/salao/pagar-conta/{numeroMesa}")
+    public PedidoSalao pagarConta(@PathVariable Integer numeroMesa){
+
+        PedidoSalao pedidoSalao = pedidoConverter.convert(pedidoGateway.getPedidoSalaoByNumeroMesa(numeroMesa).get());
+        pedidoSalao.setStatus(StatusPedidoSalao.PAGO.getCodigo());
+        pedidoGateway.savePedidoSalao(pedidoDataConverter.convert(pedidoSalao));
+
+        return pedidoSalao;
+    }
 
     /* Pedidos delivery */
 

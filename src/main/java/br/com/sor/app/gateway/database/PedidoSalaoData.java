@@ -30,7 +30,8 @@ public class PedidoSalaoData {
     @Column(name = "total")
     private BigDecimal total;
 
-    @Column(name = "tipo_pedido")
-    private int tipoPedido;
+    @Column(name = "status")
+    private int status;
+
 
 }

@@ -14,6 +14,7 @@ public interface PedidoGateway {
     Optional<PedidoSalaoData> getPedidoSalaoById(Integer id);
     PedidoSalaoData updatePedidoSalao(PedidoSalaoData pedidoSalaoData)throws Exception;
     void deletePedidoSalao(Integer id);
+    Optional<PedidoSalaoData> getPedidoSalaoByNumeroMesa(Integer id);
 
     PedidoDeliveryData savePedidoDelivery(PedidoDeliveryData pedidoDeliveryData);
     List<PedidoDeliveryData> getAllPedidosDelivery();

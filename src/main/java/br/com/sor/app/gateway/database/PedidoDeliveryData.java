@@ -27,9 +27,6 @@ public class PedidoDeliveryData {
     @Column(name = "total")
     private BigDecimal total;
 
-    @Column(name = "tipo_pedido")
-    private int tipoPedido;
-
     @OneToOne(fetch = FetchType.EAGER)
     private ClienteData cliente;
 
