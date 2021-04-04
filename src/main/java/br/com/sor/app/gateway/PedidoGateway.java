@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface PedidoGateway {
 
-    PedidoSalaoData savePedidoSalao(PedidoSalaoData pedido);
+    PedidoSalaoData savePedidoSalao(PedidoSalaoData pedido) throws Exception;
     List<PedidoSalaoData> getAllPedidosSalao();
     Optional<PedidoSalaoData> getPedidoSalaoById(Integer id);
     PedidoSalaoData updatePedidoSalao(PedidoSalaoData pedidoSalaoData)throws Exception;

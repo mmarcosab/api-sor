@@ -9,6 +9,7 @@ import br.com.sor.app.gateway.database.PedidoSalaoData;
 import br.com.sor.app.gateway.database.converter.PedidoDataConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -40,18 +41,27 @@ public class PedidoController {
 
     @GetMapping("/salao")
     public ResponseEntity<?> getAllPedidosSalao(){
-        List<PedidoSalaoData> pedidos = new ArrayList<>();
-        pedidos = pedidoGateway.getAllPedidosSalao();
-        return ResponseEntity.ok().body(pedidos);
+        try {
+            List<PedidoSalaoData> pedidos = new ArrayList<>();
+            pedidos = pedidoGateway.getAllPedidosSalao();
+            return ResponseEntity.ok().body(pedidos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
+        }
+
     }
 
     @GetMapping("/salao/{id}")
     public ResponseEntity<?> getPedidoSalaoById(@PathVariable Integer id){
-        Optional<PedidoSalaoData> produtoData = pedidoGateway.getPedidoSalaoById(id);
-        if(produtoData.isEmpty())  {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok().body(produtoData);
+        try {
+            Optional<PedidoSalaoData> produtoData = pedidoGateway.getPedidoSalaoById(id);
+            if(produtoData.isEmpty())  {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok().body(produtoData);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
         }
     }
 
@@ -66,27 +76,35 @@ public class PedidoController {
 
     @DeleteMapping("/salao/{id}")
     public void deletePedidoSalao(@PathVariable Integer id){
-        pedidoGateway.deletePedidoSalao(id);
+        try {
+            pedidoGateway.deletePedidoSalao(id);
+        } catch (Exception e) {
+            log.error("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
+        }
     }
 
     @GetMapping("/salao/fechar-conta/{numeroMesa}")
-    public PedidoSalao fecharConta(@PathVariable Integer numeroMesa){
-
-        PedidoSalao pedidoSalao = pedidoConverter.convert(pedidoGateway.getPedidoSalaoByNumeroMesa(numeroMesa).get());
-        pedidoSalao.setStatus(StatusPedidoSalao.FECHADO.getCodigo());
-        pedidoGateway.savePedidoSalao(pedidoDataConverter.convert(pedidoSalao));
-
-        return pedidoSalao;
+    public ResponseEntity<?> fecharConta(@PathVariable Integer numeroMesa){
+        try {
+            PedidoSalao pedidoSalao = pedidoConverter.convert(pedidoGateway.getPedidoSalaoByNumeroMesa(numeroMesa).get());
+            pedidoSalao.setStatus(StatusPedidoSalao.FECHADO.getCodigo());
+            pedidoGateway.savePedidoSalao(pedidoDataConverter.convert(pedidoSalao));
+            return ResponseEntity.ok().body(pedidoSalao);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
+        }
     }
 
     @GetMapping("/salao/pagar-conta/{numeroMesa}")
-    public PedidoSalao pagarConta(@PathVariable Integer numeroMesa){
-
-        PedidoSalao pedidoSalao = pedidoConverter.convert(pedidoGateway.getPedidoSalaoByNumeroMesa(numeroMesa).get());
-        pedidoSalao.setStatus(StatusPedidoSalao.PAGO.getCodigo());
-        pedidoGateway.savePedidoSalao(pedidoDataConverter.convert(pedidoSalao));
-
-        return pedidoSalao;
+    public ResponseEntity<?> pagarConta(@PathVariable Integer numeroMesa){
+        try {
+            PedidoSalao pedidoSalao = pedidoConverter.convert(pedidoGateway.getPedidoSalaoByNumeroMesa(numeroMesa).get());
+            pedidoSalao.setStatus(StatusPedidoSalao.PAGO.getCodigo());
+            pedidoGateway.savePedidoSalao(pedidoDataConverter.convert(pedidoSalao));
+            return ResponseEntity.ok().body(pedidoSalao);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
+        }
     }
 
     /* Pedidos delivery */
@@ -103,18 +121,26 @@ public class PedidoController {
 
     @GetMapping("/delivery")
     public ResponseEntity<?> getAllPedidosDelivery(){
-        List<PedidoDeliveryData> pedidos = new ArrayList<>();
-        pedidos = pedidoGateway.getAllPedidosDelivery();
-        return ResponseEntity.ok().body(pedidos);
+        try {
+            List<PedidoDeliveryData> pedidos = new ArrayList<>();
+            pedidos = pedidoGateway.getAllPedidosDelivery();
+            return ResponseEntity.ok().body(pedidos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
+        }
     }
 
     @GetMapping("/delivery/{id}")
     public ResponseEntity<?> getPedidoDeliveryById(@PathVariable Integer id){
-        Optional<PedidoDeliveryData> pedidoDeliveryData = pedidoGateway.getPedidoDeliveryById(id);
-        if(pedidoDeliveryData.isEmpty())  {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok().body(pedidoDeliveryData);
+        try {
+            Optional<PedidoDeliveryData> pedidoDeliveryData = pedidoGateway.getPedidoDeliveryById(id);
+            if(pedidoDeliveryData.isEmpty())  {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok().body(pedidoDeliveryData);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
         }
     }
 
@@ -128,8 +154,12 @@ public class PedidoController {
     }
 
     @DeleteMapping("/delivery/{id}")
-    public void delete(@PathVariable Integer id){
-        pedidoGateway.deletePedidoDelivery(id);
+    public void deletePedidoDelivery(@PathVariable Integer id){
+        try {
+            pedidoGateway.deletePedidoDelivery(id);
+        } catch (Exception e) {
+            log.error("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
+        }
     }
 
 
@@ -149,18 +179,26 @@ public class PedidoController {
 
     @GetMapping("/balcao")
     public ResponseEntity<?> getAllPedidosBalcao(){
-        List<PedidoBalcaoData> pedidos = new ArrayList<>();
-        pedidos = pedidoGateway.getAllPedidosBalcao();
-        return ResponseEntity.ok().body(pedidos);
+        try {
+            List<PedidoBalcaoData> pedidos = new ArrayList<>();
+            pedidos = pedidoGateway.getAllPedidosBalcao();
+            return ResponseEntity.ok().body(pedidos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
+        }
     }
 
     @GetMapping("/balcao/{id}")
     public ResponseEntity<?> getPedidoBalcaoById(@PathVariable Integer id){
-        Optional<PedidoBalcaoData> pedidoDeliveryData = pedidoGateway.getPedidoBalcaoById(id);
-        if(pedidoDeliveryData.isEmpty())  {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok().body(pedidoDeliveryData);
+        try {
+            Optional<PedidoBalcaoData> pedidoDeliveryData = pedidoGateway.getPedidoBalcaoById(id);
+            if (pedidoDeliveryData.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok().body(pedidoDeliveryData);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
         }
     }
 
@@ -175,7 +213,11 @@ public class PedidoController {
 
     @DeleteMapping("/balcao/{id}")
     public void deletePedidoBalcao(@PathVariable Integer id){
-        pedidoGateway.deletePedidoBalcao(id);
+        try {
+            pedidoGateway.deletePedidoBalcao(id);
+        } catch (Exception e) {
+            log.error("Houve um erro ao tratar a requisicao. Erro: " + e.getMessage());
+        }
     }
 
 }

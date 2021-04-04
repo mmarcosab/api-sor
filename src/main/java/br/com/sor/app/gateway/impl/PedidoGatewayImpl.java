@@ -26,7 +26,7 @@ public class PedidoGatewayImpl implements PedidoGateway {
     /* Pedidos vindos do salao*/
 
     @Override
-    public PedidoSalaoData savePedidoSalao(PedidoSalaoData pedidoSalaoData){
+    public PedidoSalaoData savePedidoSalao(PedidoSalaoData pedidoSalaoData) throws Exception {
         log.debug("Armazenando produto: {}", pedidoSalaoData);
         return pedidoSalaoRepository.save(pedidoSalaoData);
     }
